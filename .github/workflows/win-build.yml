@@ -17,12 +17,6 @@ jobs:
     - name: Rust
       uses: dtolnay/rust-toolchain@stable
 
-    - name: LLVM
-      run: choco install -y llvm
-
-    - name: Msbuild
-      uses: microsoft/setup-msbuild@v1.3.1
-
     - name: Build
       run: |
         cargo build --release
@@ -30,3 +24,10 @@ jobs:
     - name: Run
       run: |
         cargo run --release dummy.pdf
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: gh-mupdf-rs-win
+        path: |
+          target/release/*.exe
